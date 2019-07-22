@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <title>Self Camera</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="js/clmtrackr.js"></script>
+</head>
+<body>
+<div class="container">
+    <video id="myVideo" width="400" height="300" autoplay="1" ></video>
+    <canvas id="drawCanvas" width="400" height="300"></canvas>
+</div>
+
+
+<script type="text/javascript">
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+    window.URL = window.URL || window.webkitURL;
+
+    var video = document.getElementById('myVideo');
+    var localStream = null;
+    navigator.getUserMedia({video: true, audio: false},
+        function(stream) { // for success case
+            console.log(stream);
+            video.srcObject = stream;
+        },
+        function(err) { // for error case
+            console.log(err);
+        }
+    );
+</script>
+<script type="text/javascript">
+    var videoInput = document.getElementById('myVideo');
+
+    var ctracker = new clm.tracker();
+    ctracker.init();
+    ctracker.start(videoInput);
+
+    var canvasInput = document.getElementById('drawCanvas');
+    var cc = canvasInput.getContext('2d');
+    function drawLoop() {
+        requestAnimationFrame(drawLoop);
+        cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
+        ctracker.draw(canvasInput);
+    }
+    drawLoop();
+</script>
+</body>
+</html>

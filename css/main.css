@@ -1,0 +1,20 @@
+.container {
+    position: relative;
+}
+
+#myVideo {
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    -ms-filter: fliph;
+}
+
+#drawCanvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    -ms-filter: fliph;
+}
